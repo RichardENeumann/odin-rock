@@ -1,7 +1,5 @@
 "use strict";
 
-const playerSelection = "rOcK";
-
 function getComputerChoice() {
     let randomChoice = Math.floor(Math.random() * 10) % 3 + 1;
     switch(randomChoice) {
@@ -62,3 +60,18 @@ function playRound(playerSelection, computerSelection) {
         return "Something went wrong here, try again!";
     }
 }
+
+function playGame(numberOfRounds) {
+    for (let i = 0; i < numberOfRounds; i++) {
+    let playerSelection = prompt("Please enter your choice of Rock, Paper or Scissors...");
+    console.log(playRound(playerSelection, getComputerChoice()));
+    }
+    return "End of game! Well played.";
+}
+
+function mainLoop() {
+    let numberOfRounds = prompt("How many rounds would you like to play?");
+    return playGame(numberOfRounds);
+}
+
+mainLoop();
