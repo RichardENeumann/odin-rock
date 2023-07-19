@@ -80,7 +80,7 @@ function playGame(numberOfRounds) {
 
 function mainLoop() {
     console.log(playGame(5));
-    console.log("Your score:" + playerScore + "|| The computer's score:" + computerScore);
+    console.log("Your score: " + playerScore + " - The computer's score: " + computerScore);
     let result = Math.sign(playerScore - computerScore);
     switch(result) {
         case -1:
@@ -95,4 +95,4 @@ function mainLoop() {
     }
 }
 
-mainLoop();
+setTimeout(mainLoop, 50);
