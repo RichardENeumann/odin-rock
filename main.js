@@ -4,8 +4,7 @@ let playerScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
-    let randomChoice = Math.floor(Math.random() * 10) % 3 + 1;
-    switch(randomChoice) {
+    switch(Math.floor(Math.random() * 10) % 3 + 1) {
         case 1:
             return "Rock";
             break;
@@ -19,7 +18,7 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+    console.log(playerSelection, computerSelection);
 
     if (playerSelection === computerSelection) {
         return playerSelection + " versus " + computerSelection + " - That's a draw!";
@@ -70,20 +69,22 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function playGame(numberOfRounds) {
-    for (let i = 0; i < numberOfRounds; i++) {
-    let playerSelection = prompt("Please enter your choice of Rock, Paper or Scissors...");
-    console.log(playRound(playerSelection, getComputerChoice()));
-    }
-    return "End of game! Well played.";
-}
+const rockButton = document.querySelector("#Rock");
+    rockButton.addEventListener("click", (e) => { 
+        playRound(e.target.id, getComputerChoice()); 
+    });
+const scissorsButton = document.querySelector("#Scissors");
+    scissorsButton.addEventListener("click", (e) => { 
+        playRound(e.target.id, getComputerChoice()); 
+    });
+const paperButton = document.querySelector("#Paper");
+    paperButton.addEventListener("click", (e) => { 
+        playRound(e.target.id, getComputerChoice()); 
+    });
 
 function mainLoop() {
- //   console.log(playGame(5));
-    console.log("Your score: " + playerScore + " - The computer's score: " + computerScore);
-    let result = Math.sign(playerScore - computerScore);
     let finalMessage;
-    switch(result) {
+    switch(Math.sign(playerScore - computerScore)) {
         case -1:
             finalMessage = "Der Computer hat gewonnen.";
             break;
