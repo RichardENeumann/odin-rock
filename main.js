@@ -1,10 +1,16 @@
 "use strict";
 
+let numberOfRounds = 5;
 let playerScore = 0;
 let computerScore = 0;
 
+function writeToDisplay(text) {
+    console.log(text);
+}
+
 function getComputerChoice() {
-    switch(Math.floor(Math.random() * 10) % 3 + 1) {
+    let randomNumber = Math.floor(Math.random() * 10) % 3 + 1;
+    switch(randomNumber) {
         case 1:
             return "Rock";
             break;
@@ -21,79 +27,88 @@ function playRound(playerSelection, computerSelection) {
     console.log(playerSelection, computerSelection);
 
     if (playerSelection === computerSelection) {
-        return playerSelection + " versus " + computerSelection + " - That's a draw!";
+        writeToDisplay(playerSelection + " versus " + computerSelection + " - That's a draw!");
     } else if (playerSelection === "Rock") {
         switch (computerSelection) {
             case "Paper":
                 computerScore++;
-                return "Paper beats rock! - The computer wins!";
+                writeToDisplay("Paper beats rock! - The computer wins!");
                 break;
             case "Scissors":
                 playerScore++;
-                return "Rock beats scissors! - You win!";
+                writeToDisplay("Rock beats scissors! - You win!");
                 break;  
             default: 
-                return "Something went wrong here, try again!";                  
+                writeToDisplay("Something went wrong here, try again!");                  
                 break;
         }
     } else if (playerSelection === "Paper") {
         switch (computerSelection) {
             case "Rock":
                 playerScore++;
-                return "Paper beats rock! - You win!";
+                writeToDisplay("Paper beats rock! - You win!");
                 break;
             case "Scissors":
                 computerScore++;
-                return "Scissors beat paper! - The computer wins!";
+                writeToDisplay("Scissors beat paper! - The computer wins!");
                 break;
             default: 
-                return "Something went wrong here, try again!";                  
+                writeToDisplay("Something went wrong here, try again!");                  
                 break;                  
         }                          
     } else if (playerSelection === "Scissors") {
         switch (computerSelection) {
             case "Rock":
                 computerScore++;
-                return "Rock beats scissors - The computer wins!";
+                writeToDisplay("Rock beats scissors - The computer wins!");
                 break;
             case "Paper":
                 playerScore++;
-                return "Scissors beat paper! - You win!";
+                writeToDisplay("Scissors beat paper! - You win!");
                 break;                    
             default: 
-                return "Something went wrong here, try again!";                  
+                writeToDisplay("Something went wrong here, try again!");                  
                 break;    
         }        
     } else {
-        return "Something went wrong here, try again!";
+        writeToDisplay("Something went wrong here, try again!");
     }
 }
 
-const rockButton = document.querySelector("#Rock");
-    rockButton.addEventListener("click", (e) => { 
-        playRound(e.target.id, getComputerChoice()); 
-    });
-const scissorsButton = document.querySelector("#Scissors");
-    scissorsButton.addEventListener("click", (e) => { 
-        playRound(e.target.id, getComputerChoice()); 
-    });
-const paperButton = document.querySelector("#Paper");
-    paperButton.addEventListener("click", (e) => { 
-        playRound(e.target.id, getComputerChoice()); 
-    });
-
-function mainLoop() {
-    let finalMessage;
-    switch(Math.sign(playerScore - computerScore)) {
+function showResults() {
+    let result = Math.sign(playerScore - computerScore);
+    switch(result) {
         case -1:
-            finalMessage = "Der Computer hat gewonnen.";
+            writeToDisplay("Your points: " + playerScore + " - Computer's points: " + computerScore);
+            writeToDisplay("The computer won.");
             break;
         case 1:
-            finalMessage = "Du hast gewonnen!";
+            writeToDisplay("Your points: " + playerScore + " - Computer's points: " + computerScore);
+            writeToDisplay("You win!");
             break;
         default:
-            finalMessage = "Unentschieden...";
+            writeToDisplay("Your points: " + playerScore + " - Computer's points: " + computerScore);
+            writeToDisplay("That's a draw...");
             break;
     }
+    numberOfRounds = 5;
+    playerScore = 0;
+    computerScore = 0;
 }
 
+function playGame(e) {
+    if (numberOfRounds > 0) {
+        playRound(e.target.id, getComputerChoice());   
+        numberOfRounds--; 
+    }
+    if (numberOfRounds === 0) showResults(); 
+}
+
+
+
+const rockButton = document.querySelector("#Rock");
+    rockButton.addEventListener("click", playGame); 
+const scissorsButton = document.querySelector("#Scissors");
+    scissorsButton.addEventListener("click", playGame); 
+const paperButton = document.querySelector("#Paper");
+    paperButton.addEventListener("click", playGame);
