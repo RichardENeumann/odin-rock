@@ -79,20 +79,20 @@ function playGame(numberOfRounds) {
 }
 
 function mainLoop() {
-    console.log(playGame(5));
+ //   console.log(playGame(5));
     console.log("Your score: " + playerScore + " - The computer's score: " + computerScore);
     let result = Math.sign(playerScore - computerScore);
+    let finalMessage;
     switch(result) {
         case -1:
-            console.log("The Computer won!");
+            finalMessage = "Der Computer hat gewonnen.";
             break;
         case 1:
-            console.log("You won! Yay!");
+            finalMessage = "Du hast gewonnen!";
             break;
         default:
-            console.log("It's a tie!");
+            finalMessage = "Unentschieden...";
             break;
     }
 }
 
-setTimeout(mainLoop, 50);
