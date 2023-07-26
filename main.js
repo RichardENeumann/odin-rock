@@ -108,12 +108,15 @@ function showResults() {
     const result = Math.sign(playerScore - computerScore);
     switch(result) {
         case -1:
+            writeToDisplay("🤖");
             writeToDisplay("The computer won.");
             break;
         case 1:
+            writeToDisplay("🏆");
             writeToDisplay("You win!");
             break;
         default:
+            writeToDisplay("❌");
             writeToDisplay("That's a draw...");
             break;
     }
